@@ -6,21 +6,12 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;600;700;800&display=swap"
-		rel="stylesheet" />
-	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;500&display=swap" rel="stylesheet" />
-	<link href="https://fonts.googleapis.com/css2?family=Spartan&display=swap" rel="stylesheet" />
-
 	<!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="style.css" />
-
-	<!-- Animate CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
 	<!-- D3.js -->
 	<script src="https://d3js.org/d3.v5.min.js"></script>
@@ -37,23 +28,18 @@
 
 <body>
 
-	<!--
-        Title Section:
-        - title
-        - description
-        - background image
-    -->
+
 	<section id="title-section">
 		<div id="covid-background-image">
 			<div id="overlay">
-				<h1 id="title" class="animate__animated animate__fadeInUp animate__delay-1s">State of the Vaccine</h1>
-				<p id="title-description" class="animate__animated animate__fadeInUp animate__delay-2s">An in-depth
+				<h1 id="title">State of the Vaccine</h1>
+				<p id="title-description">An in-depth
 					analysis on the
 					effectiveness
 					of COVID
 					Vaccines in the U.S.</p>
 
-				<div id="icon" class="animate__animated animate__fadeInDown animate__delay-3s" href="#overview-section">
+				<div id="icon" href="#overview-section">
 					<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="1000px" width="50" height="50"
 						viewBox="0 0 50 50" style="fill: white;">
 						<path
@@ -65,37 +51,9 @@
 		</div>
 	</section>
 
-	<!-- Tooltip Features -->
-	<div id="tooltip">
-		<h1 id="tooltip-header"></h1>
-		<hr id="tooltip-hr">
-		<h2 id="tooltip-date"></h2>
-		<h3 id="cases"></h3>
-		<h3 id="cases-avg"></h3>
-		<h3 id="cases-avg-per-100k"></h3>
-		<br>
-		<h3 id="deaths"></h3>
-		<h3 id="deaths-avg"></h3>
-		<h3 id="deaths-avg-per-100k"></h3>
-	</div>
-
-
-	<section id="overview-section">
-		<h1 id="slide-header">Q) How Effective is the COVID Vaccine in the U.S?</h1>
-		<h1 id="mini-header">In order to fully understand the effect of the vaccine, the following must be examined:
-		</h1>
-		<h1 id="bullet-point1"><strong>1.</strong> COVID cases and deaths before vaccine distribution</h1>
-		<h1 id="bullet-point2"><strong>2.</strong> Vaccine distribution percentages across the U.S</h1>
-		<h1 id="bullet-point3"><strong>3.</strong> COVID cases and deaths after vaccine distribution</h1>
-
-		<h2 class="animate__animated animate__fadeIn"></h2>
-		<h2 class="animate__animated animate__fadeIn"></h2>
-		<h2 class="animate__animated animate__fadeIn"></h2>
-	</section>
-
 	<section id="covid-before-map-section">
 		<h1 id="slide-header">1) Before the Vaccine</h1>
-		<p class="animate__animated animate__fadeIn">
+		<p>
 			Decemeber 12th, 2020, a day before the vaccine was to begin being distributed, the United States witnessed a
 			serge of cases across the country. The virus was nearing its peak and the country was in full lockdown.
 		</p>
@@ -117,71 +75,6 @@
 		</div>
 
 	</section>
-
-	<section id="vaccination-section">
-		<h1 id="slide-header">2) Vaccine Distribution</h1>
-		<p class="animate__animated animate__fadeIn">
-			From Decemeber 13th, 2020 onwards, vaccines were being distributed throughout the United States.
-		</p>
-
-		<!-- Radio Buttons -->
-		<div class="btn-group btn-group-md" role="group2">
-			<input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off" checked>
-			<label class="btn btn-outline-light" for="btnradio3" onclick="drawMap(false, true, false, '#slide2');">Fully
-				Vaccinated</label>
-
-			<input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-			<label class="btn btn-outline-light" for="btnradio4" onclick="drawMap(false, false, false, '#slide2');">One
-				Dose</label>
-		</div>
-
-		<div id="slide2" class="svg-container">
-		</div>
-
-	</section>
-
-	<section id="covid-after-map-section">
-		<h1 id="slide-header">3) After the Vaccine</h1>
-		<p class="animate__animated animate__fadeIn">
-			After vaccine distribution for nearly half a year, COVID-19 began to. However, states with lower vaccination
-			rates witnessed increasing COVID-19 cases.
-		</p>
-
-		<!-- Radio Buttons -->
-		<div class="btn-group btn-group-md" role="group3">
-			<input type="radio" class="btn-check" name="btnradio3" id="btnradio5" autocomplete="off" checked>
-			<label class="btn btn-outline-dark" for="btnradio5" onclick="drawMap(true, true, false, '#slide3');">Cases
-			</label>
-
-			<input type="radio" class="btn-check" name="btnradio3" id="btnradio6" autocomplete="off">
-			<label class="btn btn-outline-dark" for="btnradio6" onclick="drawMap(true, false, false, '#slide3');">Deaths
-			</label>
-		</div>
-
-		<div id="slide3" class="svg-container">
-		</div>
-
-	</section>
-
-	<section id="conclusion-section">
-		<h1 id="slide-header">A) The Vaccine is Effective</h1>
-		<h1 id="mini-header">Despite having only half the country fully vaccinated, COVID-19 cases have
-			dropped to all time lows.
-		</h1>
-		<h1 id="bullet-point4"><strong>1.</strong> Seven day average cases have dropped <strong>73%</strong> since Dec
-			12th.</h1>
-		<h1 id="bullet-point5"><strong>2.</strong> Seven day average deaths have dropped <strong>89%</strong> since Dec
-			12th.</h1>
-		<h1 id="bullet-point6"><strong>3.</strong> Counties with lower vaccination rates are witnessing an increase in
-			COVID cases (and vice versa).</h1>
-
-
-	</section>
-
-	<!-- Bootstrap Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
 
 	<!-- Custom JS -->
 	<script defer src='script.js'></script>
