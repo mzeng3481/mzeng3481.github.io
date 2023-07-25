@@ -1,0 +1,203 @@
+/* Title Section 
+- Hero Background Tutorial:
+  Source: https://www.youtube.com/watch?v=QA8yjuS9CQg
+*/
+
+body {
+    font-family: Montserrat, sans-serif;
+    overflow-x: hidden;
+}
+
+#title-section {
+    margin: 0;
+    overflow-x: hidden;
+}
+  
+#covid-background-image {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-image: url("images/covid-2.jpg");
+}
+  
+#overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+  
+#overlay h1 {
+    font-size: calc(4em + 1vw);
+    letter-spacing: 0px;
+    line-height: 1.5;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    margin: 0 0 5px;
+}
+  
+#overlay p {
+    margin: 0;
+    font-size: calc(1em + 1vw);
+    font-weight: 300;
+    line-height: 1.5;
+    font-family: Montserrat, sans-serif;
+}
+
+#icon {
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    bottom: 5rem;
+}
+
+#overview-section {
+    padding: 5% 7.5% 5%;
+    height: 100vh;
+    width: 100vw;
+    color: navy;
+    background-image: linear-gradient(seashell, white);
+}
+
+#slide-header {
+    font-weight: 700;
+    font-size: calc(2em + 1vw);
+}
+
+#mini-header {
+    padding-top: 3.0%;
+    padding-bottom: 3.0%;
+}
+
+#bullet-point1, #bullet-point2, #bullet-point3 {
+    padding-left: 5%;
+    padding-bottom: 2.75%;
+}
+
+#bullet-point1 {
+    color: #cc0000;
+}
+
+#bullet-point2 {
+    color: #6aa84f;
+}
+
+#bullet-point3 {
+    color: #3c78d8;
+}
+
+
+#covid-before-map-section {
+    padding: 5% 7.5% 0%;
+    background-color: seashell;
+    color: navy/* #0F2040*/;
+}
+
+#vaccination-section {
+    padding: 5% 7.5% 0%;
+    background-color: #0F2040; /*002855*/
+    color: white;
+}
+
+#covid-after-map-section {
+    padding: 5% 7.5% 0%;
+    background-color: seashell; /*002855*/
+    color: navy;
+}
+
+#conclusion-section {
+    padding: 5% 7.5% 5%;
+    height: 100vh;
+    width: 100vw;
+    color: white;
+    background-color: #002855;
+}
+
+#bullet-point4, #bullet-point5, #bullet-point6 {
+    padding-left: 5%;
+    padding-bottom: 2%;
+}
+
+#bullet-point4 {
+    color: #e06666;
+}
+
+#bullet-point5 {
+    color: #93c47d;
+}
+
+#bullet-point6 {
+    color: #6fa8dc;
+}
+
+.svg-container {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+
+#tooltip {
+    visibility: hidden;
+
+    z-index: 10;
+    position: absolute;
+    height: auto;
+    width: auto;
+    
+    
+    font-family: Montserrat, sans-serif;
+    border: 2px solid lightgrey;
+    border-radius: 15px;
+
+    text-align: left;
+    padding: 1% 1% 1%;
+    background-color: white;
+}
+
+#tooltip-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+#tooltip-hr {
+    border: none;
+    height: 3px;
+    width: auto;
+    background-color: red;
+    margin: 0;    
+}
+
+#tooltip-date {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#tooltip #cases, #cases-avg, #cases-avg-per-100k, #deaths, #deaths-avg, #deaths-avg-per-100k {
+    font-size: 16px;
+}
+
+
+.county:hover {
+    z-index: 10;
+    stroke: black;
+    stroke-width: 2.0px;
+    opacity: 1.0;
+}
