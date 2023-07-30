@@ -50,6 +50,14 @@ body {
     background-image: linear-gradient(seashell, white);
 }
 
+/* #slide2 {
+    padding: 5% 7.5% 5%;
+    height: 40vh;
+    width: 20vw;
+    color: navy;
+    background-image: linear-gradient(seashell, white);
+} */
+
 #slide-header {
     font-weight: 700;
     font-size: calc(2em + 1vw);
