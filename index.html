@@ -19,7 +19,7 @@
     <!-- Annotation Library -->
     <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 
-    <title>State of the Vaccine</title>
+    <title>Lead Poisoning</title>
 </head>
 
 <body>
@@ -30,29 +30,39 @@
         - description
         - background image
     -->
+
 	<section id="title-section">
 		<div id="covid-background-image">
 			<div id="overlay">
-				<h1 id="title" class="animate__animated animate__fadeInUp animate__delay-1s">State of the Vaccine</h1>
-				<p id="title-description" class="animate__animated animate__fadeInUp animate__delay-2s">An in-depth
+				<h1 id="title" class="animate__animated animate__fadeInUp animate__delay-1s">Lead Poisoning</h1>
+				<p id="title-description">An in-depth
 					analysis on the
-					effectiveness
-					of COVID
-					Vaccines in the U.S.</p>
-
-			</div>
+					effects of lead poisoning in the U.S.</p>
+			</div>		
 		</div>
+		<div id="firstp">
+			<p>
+				Significant levels of lead have existed on Earth for far longer than most would assume. The historical record of lead levels extracted from ice cores, 
+				provids valuable insights into lead pollution through various civilizations and industrial periods. 
+				This chart illustrates how human activities have influenced environmental lead contamination.
+				Understanding this historical context is crucial before delving into the representation of lead levels in blood and its impact on public health.
+			</p>
+		</div>
+		<div id="slide0"></div>
 	</section>
 
 	<section id="covid-before-map-section">
-		<p class="animate__animated animate__fadeIn">
-			December 12th, 2020, a day before the vaccine was to begin being distributed, the United States witnessed a
-			serge of cases across the country. The virus was nearing its peak and the country was in full lockdown.
-		</p>
+		<div id="firstp">
+			<p>
+			Although it is generally understood that high Blood Lead Levels(BLL) pose significant health issues in humans, the concrete social and economical effects are less apparent.
+			This chart graphs average preschool BLL(Red) and violent crimes per 100,000 people in the United States(Blue).
+			Try using the slider to move the "Preschoolers" to the right and observe what happens once they reach adulthood. See if you can spot the correlation.
+			</p>
+		</div>
 
 		<!-- Radio Buttons -->
 		<input type="range" name="slider1" id="slider1" min="0" max="25" value="0">
-		<span id="slider1-value">0</span>
+		<span id="slider1-value">0 years</span>
 
 		<!-- <svg1 id="canvas"></svg1> -->
 		<div id="slide1"></div>
@@ -60,9 +70,11 @@
 	</section>
 
 	<section id="covid-after-map-section">
-		<p class="animate__animated animate__fadeIn">
-			he country. The virus was nearing its peak and the country was in full lockdown.
-		</p>
+		<div id="firstp">
+			<p>
+				The correlation is not isolated to the United States. Globally, many developed countries show similar trends. Try moving the slider to match the lines for each country. Which year matches the best?
+			</p>
+		</div>
 
 		<!-- Radio Buttons -->
 
@@ -71,10 +83,26 @@
 		<button  id="Canada" onclick="drawMap('#slide2', 'Canada');">Canada</button>
 		<button  id="Aus" onclick="drawMap('#slide2', 'Aus');">Australia</button>
 		<input type="range" name="slider2" id="slider2" min="0" max="25" value="0">
-		<span id="slider2-value">0</span>
+		<span id="slider2-value">0 years</span>
 		<!-- <svg1 id="canvas"></svg1> -->
 		<div id="slide2"></div>
 		</div>
+	</section>
+
+	<section id="covid-before-map-section">
+		<div id="covid-background-image">
+			<div id="overlay">
+				<h1 id="title" class="animate__animated animate__fadeInUp animate__delay-1s">Conclusion</h1>
+			</div>	
+			
+			<div id="firstp">
+				<p>
+					Lead exposure is often seen for its immediate health issues such as 
+					high blood pressure and brain related health issues in adults. This visualization emphasizes how one factor can have long-standing socialeconomical effects and highlights how important healthy environments are for young children.
+				</p>
+			</div>
+		</div>
+		
 	</section>
 </body>
 
@@ -86,20 +114,146 @@
 	let selectedValueCanada = 0;
 	let selectedValueAus = 0;
 
-	var margin = { top: 20, right: 50, bottom: 30, left: 50 },
-		width = 700 - margin.left - margin.right,
-		height = 500 - margin.top - margin.bottom;
+	d3.csv("data/ice_core.csv", function (iceData) {
+		var margin = { top: 20, right: 50, bottom: 30, left: 50 },
+			width = 2000 - margin.left - margin.right,
+			height = 700 - margin.top - margin.bottom;
 
-	var svg1 = d3.select("#slide1")
-		.append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom)
-		.append("g")
-		.attr("transform",
-			"translate(" + margin.left + "," + margin.top + ")");
+		var svg = d3.select("#slide0")
+			.append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform",
+				"translate(" + margin.left + "," + margin.top + ")");
+
+		// Convert the data to the appropriate format for US_Blood.csv
+		const parsedIceData = iceData.map((d) => ({
+			year: parseFloat(d.year),
+			value: parseFloat(d.lead),
+		}));
+		
+
+		var xScale = d3.scaleLinear().domain([0, 2008]).range([0, width]);
+		//var yScale = d3.scaleLinear().domain([0, d3.max(parsedIceData, (d) => d.value)]).range([height, 0]);
+var yScale = d3.scaleLog()
+    .domain([1, d3.max(parsedIceData, (d) => d.value)])
+    .range([height, 0]);
+		// Define the line generator
+		var lineIce = d3.line()
+			.x((d) => xScale(d.year))
+			.y((d) => yScale(d.value));
+		
+		const mouse_g = svg.append('g').classed('mouse', true).style('display', 'none');
+		mouse_g.append('rect').attr('width', 2).attr('x',-1).attr('height', height).attr('fill', 'lightgray');
+		mouse_g.append('circle').attr('r', 3).attr("stroke", "steelblue");
+		mouse_g.append('text');
+
+		svg
+		.append("path")
+		.datum(parsedIceData)
+		.attr("fill", "none")
+		.attr("stroke", "steelblue")
+		.attr("stroke-width", 2)
+		.attr("d", lineIce);
+		
+		svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
+		svg.append("g").call(d3.axisLeft(yScale));
+
+
+
+    // Add annonations
+    var annotations = [
+        {
+		type: d3.annotationCalloutCircle,
+          note: {
+            label: "The famine and the ensuing Black Plague are easily recognizable",
+			wrap: 150,
+            title: "The Great Famine"
+          },
+		  subject: {
+            radius: 55
+          },
+          x: 1335,
+          y: 625,
+          dy: -437,
+          dx: -1
+        },{
+          note: {
+            label: "The first two spikes show the rise and fall of the Greek and Roman Empires",
+			title: "First Spikes",
+            wrap: 150,
+            align: "left"
+          },
+          connector: {
+            end: "dot"
+          },
+          x: 323,
+          y: 368,
+          dy: -169,
+          dx: -70
+        },{
+          connector: {
+            end: "dot"
+          },
+          x: 163,
+          y: 228,
+          dy: -28,
+          dx: 90
+        },{
+          //below in makeAnnotations has type set to d3.annotationLabel
+          //you can add this type value below to override that default
+          type: d3.annotationCalloutRect,
+			subject: {
+			width: 75,
+			height: 650
+			},
+          note: {
+            label: "The explosion of burning fossil fuels and smelting metals creates the most notable spike",
+            title: "Industrialization",
+            wrap: 180
+          },
+          x: 1850,
+          y: 20,
+          dy: 20,
+          dx: -40
+        }].map(function(d)
+        { 
+            d.color = "black"; 
+            return d
+        })
+		
+
+
+
+		var makeAnnotations = d3.annotation()
+        .type(d3.annotationLabel)
+        .annotations(annotations)
+
+
+		d3.select('#slide0' + " svg")
+			.append("g")
+			.attr("class", "annotation-group")
+			.style("stroke-width", "2.5px")
+			.attr("class", "animate__animated animate__fadeInRight animate__delay-1s")
+			.call(makeAnnotations)
+
+	});
 
 	d3.csv("data/US_Blood.csv", function (bloodData) {
 		d3.csv("data/US_Crime.csv", function (crimeData) {
+			var margin = { top: 20, right: 50, bottom: 30, left: 50 },
+				width = 1500 - margin.left - margin.right,
+				height = 700 - margin.top - margin.bottom;
+
+			var svg1 = d3.select("#slide1")
+				.append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+				.append("g")
+				.attr("transform",
+					"translate(" + margin.left + "," + margin.top + ")");
+
 			// Convert the data to the appropriate format for US_Blood.csv
 			const parsedBloodData = bloodData.map((d) => ({
 				year: parseInt(d.year),
@@ -176,8 +330,8 @@ function drawMap(targetDiv, countryCode) {
 	// Define margins and dimensions for the chart
 
 	var margin = { top: 20, right: 50, bottom: 30, left: 50 };
-	var width = 700 - margin.left - margin.right;
-	var height = 500 - margin.top - margin.bottom;
+	var width = 1500 - margin.left - margin.right;
+	var height = 700 - margin.top - margin.bottom;
 
 	// Create an SVG element for the chart
 	var svg2 = d3.select(targetDiv)
@@ -268,19 +422,19 @@ function drawMap(targetDiv, countryCode) {
 
 			if (countryCode === "US") {
 				document.getElementById("slider2").value = selectedValueUS;
-				document.getElementById("slider2-value").textContent = selectedValueUS;
+				document.getElementById("slider2-value").textContent = selectedValueUS.toString() + " years";
 				updateChart(selectedValueUS);
 			} else if (countryCode === "Brit") {
 				document.getElementById("slider2").value = selectedValueBrit;
-				document.getElementById("slider2-value").textContent = selectedValueBrit;
+				document.getElementById("slider2-value").textContent = selectedValueBrit.toString() + " years";
 				updateChart(selectedValueBrit);
 			} else if (countryCode === "Canada") {
 				document.getElementById("slider2").value = selectedValueCanada;
-				document.getElementById("slider2-value").textContent = selectedValueCanada;
+				document.getElementById("slider2-value").textContent = selectedValueCanada.toString() + " years";
 				updateChart(selectedValueCanada);
 			} else if (countryCode === "Aus") {
 				document.getElementById("slider2").value = selectedValueAus;
-				document.getElementById("slider2-value").textContent = selectedValueAus;
+				document.getElementById("slider2-value").textContent = selectedValueAus.toString() + " years";
 				updateChart(selectedValueAus);
 			}
 
@@ -308,12 +462,16 @@ function drawMap(targetDiv, countryCode) {
 
 //show slider value next to slider
 document.getElementById("slider1").addEventListener("input", function() {
-    document.getElementById("slider1-value").textContent = this.value;
+    document.getElementById("slider1-value").textContent = this.value.toString() + " years";
 });
 
 // Update slider value display for slider2
 document.getElementById("slider2").addEventListener("input", function() {
-    document.getElementById("slider2-value").textContent = this.value;
+    document.getElementById("slider2-value").textContent = this.value.toString() + " years";
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+        const defaultButton = document.getElementById("US");
+        defaultButton.dispatchEvent(new Event("click"));
+    });
 </script>
